@@ -5,7 +5,6 @@ import random
 import tensorflow as tf
 import numpy as np
 import scipy.stats as st
-from scipy.misc import toimage
 import scipy as sp
 from skimage import data
 from skimage.transform import swirl
@@ -449,41 +448,41 @@ class ResultWriter:
         plt.savefig(self._current_path + 'imgs/{}.png'.format(str(it).zfill(6)), bbox_inches='tight')
         # ----------------------------------------------------------------------
 
+    # Not necessary
+    # def plot_enumerate_RGB(self, sample, h, w, it):
+    #     img = sample.reshape(h,w,3)
+    #     fig = plt.figure(figsize=(1, 1), frameon=False)
+    #     gs = gridspec.GridSpec(1, 1)
+    #     gs.update(wspace=0.05, hspace=0.05)
+    #     ax = plt.subplot(gs[0])
+    #     plt.axis('off')
+    #     ax = plt.Axes(fig, [0., 0., 1., 1.])
+    #     ax.set_axis_off()
+    #     ax.set_xticklabels([])
+    #     ax.set_yticklabels([])
+    #     ax.set_aspect('equal')
+    #     fig.add_axes(ax)
+    #     plt.imshow(toimage(sample.reshape(h, w, 3)))
+    #     plt.savefig(self._current_path + 'imgs/{}.png'.format(str(it).zfill(6))) #, bbox_inches='tight')
+    # #---------------------------------------------------------------------------
 
-    def plot_enumerate_RGB(self, sample, h, w, it):
-        img = sample.reshape(h,w,3)
-        fig = plt.figure(figsize=(1, 1), frameon=False)
-        gs = gridspec.GridSpec(1, 1)
-        gs.update(wspace=0.05, hspace=0.05)
-        ax = plt.subplot(gs[0])
-        plt.axis('off')
-        ax = plt.Axes(fig, [0., 0., 1., 1.])
-        ax.set_axis_off()
-        ax.set_xticklabels([])
-        ax.set_yticklabels([])
-        ax.set_aspect('equal')
-        fig.add_axes(ax)
-        plt.imshow(toimage(sample.reshape(h, w, 3)))
-        plt.savefig(self._current_path + 'imgs/{}.png'.format(str(it).zfill(6))) #, bbox_inches='tight')
-    #---------------------------------------------------------------------------
 
-
-    def plot_batch_enumerate_RGB(self, samples, h, w, it):
-        img = sample.reshape(h,w,3)
-        fig = plt.figure(figsize=(1, 1), frameon=False)
-        gs = gridspec.GridSpec(1, 1)
-        gs.update(wspace=0.05, hspace=0.05)
-        ax = plt.subplot(gs[0])
-        plt.axis('off')
-        ax = plt.Axes(fig, [0., 0., 1., 1.])
-        ax.set_axis_off()
-        ax.set_xticklabels([])
-        ax.set_yticklabels([])
-        ax.set_aspect('equal')
-        fig.add_axes(ax)
-        plt.imshow(toimage(sample.reshape(h, w, 3)))
-        plt.savefig(self._current_path + 'imgs/{}.png'.format(str(it).zfill(6))) #, bbox_inches='tight')
-    #---------------------------------------------------------------------------
+    # def plot_batch_enumerate_RGB(self, samples, h, w, it):
+    #     img = sample.reshape(h,w,3)
+    #     fig = plt.figure(figsize=(1, 1), frameon=False)
+    #     gs = gridspec.GridSpec(1, 1)
+    #     gs.update(wspace=0.05, hspace=0.05)
+    #     ax = plt.subplot(gs[0])
+    #     plt.axis('off')
+    #     ax = plt.Axes(fig, [0., 0., 1., 1.])
+    #     ax.set_axis_off()
+    #     ax.set_xticklabels([])
+    #     ax.set_yticklabels([])
+    #     ax.set_aspect('equal')
+    #     fig.add_axes(ax)
+    #     plt.imshow(toimage(sample.reshape(h, w, 3)))
+    #     plt.savefig(self._current_path + 'imgs/{}.png'.format(str(it).zfill(6))) #, bbox_inches='tight')
+    # #---------------------------------------------------------------------------
 
 
     def write_result_enumerate_internal(self, res_dic):
