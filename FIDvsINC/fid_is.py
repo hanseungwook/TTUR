@@ -18,7 +18,8 @@ import os
 import gzip, pickle
 import tensorflow as tf
 import tensorboard as tb
-tf.io.gfile = tb.compat.tensorflow_stub.io.gfile
+
+tf.io.gfile.FastGFile = tf.compat.v1.FastGFile
 from scipy import linalg
 import pathlib
 import urllib
