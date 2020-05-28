@@ -17,7 +17,6 @@ import numpy as np
 import os
 import gzip, pickle
 import tensorflow as tf
-from scipy.misc import imread
 from scipy import linalg
 import pathlib
 import urllib
