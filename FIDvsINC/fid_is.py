@@ -17,6 +17,7 @@ import numpy as np
 import os
 import gzip, pickle
 import tensorflow as tf
+import tensorboard as tb
 tf.io.gfile = tb.compat.tensorflow_stub.io.gfile
 from scipy import linalg
 import pathlib
