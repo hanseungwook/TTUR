@@ -17,9 +17,8 @@ import numpy as np
 import os
 import gzip, pickle
 import tensorflow as tf
-import tensorboard as tb
+# import tensorboard as tb
 
-tf.io.gfile.FastGFile = tf.compat.v1.FastGFile
 from scipy import linalg
 import pathlib
 import urllib
@@ -37,7 +36,7 @@ class InvalidFIDException(Exception):
 def create_inception_graph(pth):
     """Creates a graph from saved GraphDef file."""
     # Creates graph from saved graph_def.pb.
-    with tf.io.gfile.FastGFile( pth, 'rb') as f:
+    with  tf.compat.v1.FastGFile( pth, 'rb') as f:
         graph_def = tf.GraphDef()
         graph_def.ParseFromString( f.read())
         _ = tf.import_graph_def( graph_def, name='FID_Inception_Net')
