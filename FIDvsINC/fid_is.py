@@ -17,11 +17,13 @@ import numpy as np
 import os
 import gzip, pickle
 import tensorflow as tf
+tf.io.gfile = tb.compat.tensorflow_stub.io.gfile
 from scipy import linalg
 import pathlib
 import urllib
 import h5py
 from tqdm import tqdm
+
 
 from fidutils import get_inception_score, get_softmax
 
