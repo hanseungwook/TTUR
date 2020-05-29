@@ -23,7 +23,7 @@ from scipy import linalg
 import pathlib
 import urllib
 import h5py
-from tqdm import trange
+from tqdm import tqdm
 
 
 from fidutils import get_inception_score, get_softmax
@@ -54,14 +54,17 @@ def _get_inception_layer(sess):
         for o in op.outputs:
             shape = o.get_shape()
             if shape._dims != []:
-              shape = [s.value for s in shape]
+              shape = [s for s in shape]
               new_shape = []
               for j, s in enumerate(shape):
                 if s == 1 and j == 0:
                   new_shape.append(None)
                 else:
                   new_shape.append(s)
-              o.__dict__['_shape_val'] = tf.TensorShape(new_shape)
+              
+              o.set_shape(tf.TensorShape(new_shape))
+            #   o.shape = tf.TensorShape(new_shape)
+
     return pool3
 #-------------------------------------------------------------------------------
 
@@ -88,7 +91,7 @@ def get_activations(images, sess, batch_size=100, verbose=False):
     n_batches = d0//batch_size
     n_used_imgs = n_batches*batch_size
     pred_arr = np.empty((n_used_imgs,2048))
-    for i in trange(n_batches):
+    for i in tqdm(n_batches):
         if verbose:
             print("\rPropagating batch %d/%d" % (i+1, n_batches), end="", flush=True)
         start = i*batch_size
