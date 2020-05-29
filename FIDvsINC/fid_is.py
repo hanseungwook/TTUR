@@ -46,6 +46,27 @@ def create_inception_graph(pth):
 
 # code for handling inception net derived from
 #   https://github.com/openai/improved-gan/blob/master/inception_score/model.py
+# def _get_inception_layer(sess):
+#     """Prepares inception net for batched usage and returns pool_3 layer. """
+#     layername = 'FID_Inception_Net/pool_3:0'
+#     pool3 = sess.graph.get_tensor_by_name(layername)
+#     ops = pool3.graph.get_operations()
+#     for op_idx, op in enumerate(ops):
+#         for o in op.outputs:
+#             shape = o.get_shape()
+#             if shape._dims is not None:
+#               shape = [s.value for s in shape]
+#               new_shape = []
+#               for j, s in enumerate(shape):
+#                 if s == 1 and j == 0:
+#                   new_shape.append(None)
+#                 else:
+#                   new_shape.append(s)
+#               o.set_shape(tf.TensorShape(new_shape))
+
+#     return pool3
+#-------------------------------------------------------------------------------
+
 def _get_inception_layer(sess):
     """Prepares inception net for batched usage and returns pool_3 layer. """
     layername = 'FID_Inception_Net/pool_3:0'
@@ -54,7 +75,7 @@ def _get_inception_layer(sess):
     for op_idx, op in enumerate(ops):
         for o in op.outputs:
             shape = o.get_shape()
-            if shape._dims is not None:
+            if shape._dims != []:
               shape = [s.value for s in shape]
               new_shape = []
               for j, s in enumerate(shape):
@@ -62,11 +83,8 @@ def _get_inception_layer(sess):
                   new_shape.append(None)
                 else:
                   new_shape.append(s)
-              o.set_shape(tf.TensorShape(new_shape))
-
+              o.__dict__['_shape_val'] = tf.TensorShape(new_shape)
     return pool3
-#-------------------------------------------------------------------------------
-
 
 def get_activations(images, sess, batch_size=100, verbose=False):
     """Calculates the activations of the pool_3 layer for all images.
