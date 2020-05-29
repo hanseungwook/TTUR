@@ -214,7 +214,7 @@ def _handle_path(path, sess):
         x = np.array(f.get('data'))
 
         # Change into shape (B, H, W, C) from (B, C, H, W)
-        x = np.transpose(0, 2, 3, 1)
+        x = np.transpose(x, (0, 2, 3, 1))
 
         # Might have to clip here
         # x = np.clip(x, 0, 1)
