@@ -29,19 +29,22 @@ the new version. The old version included a bug!
 
 Requirements: TF 1.1+, Python 3.x
 
-#### fid.py
-This file contains the implementation of all necessary functions to calculate the FID. It can be used either
+#### fid_is.py
+This file contains the implementation of all necessary functions to calculate the FID and IS (combined two metrics into one file). It can be used either
 as a python module imported into your own code, or as a standalone
-script to calculate the FID between precalculated (training set) statistics and a directory full of images, or between
-two directories of images.
+script to calculate the FID between precalculated (training set) statistics and a hdf5 dataset of images (saved in the shape (B, C, H, W) and in the range [0, 1] which is eventually normalized to [0, 255] during metric calculation.
 
 To compare directories with pre-calculated statistics (e.g. the ones from http://bioinf.jku.at/research/ttur/), use:
 
     fid.py /path/to/images /path/to/precalculated_stats.npz
 
-To compare two directories, use
+To compare two hdf5 datasets, use
 
-    fid.py /path/to/images /path/to/other_images
+    python fid_is.py /path/to/hdf5_dataset_1 /path/to/hdf5_dataset_2 --gpu 0 (if you want to specify gpu)
+
+    or
+
+    sbatch fid_is.slurm
 
 See `fid.py --help` for more details.
 
