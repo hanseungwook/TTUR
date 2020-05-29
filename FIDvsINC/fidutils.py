@@ -6,6 +6,7 @@ import tensorflow as tf
 import numpy as np
 import scipy.stats as st
 import scipy as sp
+from tqdm import trange
 from skimage import data
 from skimage.transform import swirl
 from skimage.filters import gaussian
@@ -27,7 +28,7 @@ def get_inception_score(images, softmax, sess, splits=10, verbose=False):
     bs = 50
     preds = []
     n_batches = int(math.ceil(float(inps.shape[0]) / float(bs)))
-    for i in range(n_batches):
+    for i in trange(n_batches):
         #sys.stdout.write(".")
         #sys.stdout.flush()
         if verbose:
