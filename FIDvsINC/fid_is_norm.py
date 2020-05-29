@@ -221,7 +221,7 @@ def check_or_download_inception(inception_path):
     return str(model_file)
 
 
-def _handle_path(path, sess):
+def _handle_path(path, sess, norm=False):
     if path.endswith('.npz'):
         f = np.load(path)
         m, s = f['mu'][:], f['sigma'][:]
@@ -236,8 +236,9 @@ def _handle_path(path, sess):
         # Change into shape (B, H, W, C) from (B, C, H, W)
         x = np.transpose(x, (0, 2, 3, 1))
 
-        # Normalize to [0, 1] range
-        x = normalize_img(torch.from_numpy(x))
+        if norm:
+            # Normalize to [0, 1] range
+            x = normalize_img(torch.from_numpy(x))
 
         # Change to range [0, 255]
         x = np.round(x * 255)
@@ -267,7 +268,7 @@ def calculate_fid_is_given_paths(paths, inception_path):
     with tf.Session() as sess:
         # sess.run(tf.compat.v1.global_variables_initializer())
         sess.run(tf.global_variables_initializer())
-        m1, s1, is_score1, is_std1 = _handle_path(paths[0], sess)
+        m1, s1, is_score1, is_std1 = _handle_path(paths[0], sess, norm=True)
         m2, s2, is_score2, is_std2 = _handle_path(paths[1], sess)
         fid_value = calculate_frechet_distance(m1, s1, m2, s2)
         return fid_value, is_score1, is_score2
