@@ -36,8 +36,9 @@ class InvalidFIDException(Exception):
 def create_inception_graph(pth):
     """Creates a graph from saved GraphDef file."""
     # Creates graph from saved graph_def.pb.
-    with  tf.compat.v1.gfile.FastGFile( pth, 'rb') as f:
-        graph_def = tf.compat.v1.GraphDef()
+    # with  tf.compat.v1.gfile.FastGFile( pth, 'rb') as f:
+    with tf.gfile.FastGFile( pth, 'rb') as f:
+        graph_def = tf.GraphDef()
         graph_def.ParseFromString( f.read())
         _ = tf.import_graph_def( graph_def, name='FID_Inception_Net')
 #-------------------------------------------------------------------------------
@@ -53,6 +54,7 @@ def _get_inception_layer(sess):
     for op_idx, op in enumerate(ops):
         for o in op.outputs:
             shape = o.get_shape()
+            print(o.shape)
             if shape._dims != []:
               shape = [s for s in shape]
               new_shape = []
@@ -243,7 +245,8 @@ def calculate_fid_is_given_paths(paths, inception_path):
             raise RuntimeError("Invalid path: %s" % p)
 
     create_inception_graph(str(inception_path))
-    with tf.compat.v1.Session() as sess:
+    # with tf.compat.v1.Session() as sess:
+    with tf.Session() as sess:
         sess.run(tf.compat.v1.global_variables_initializer())
         m1, s1, is_score1, is_std1 = _handle_path(paths[0], sess)
         m2, s2, is_score2, is_std2 = _handle_path(paths[1], sess)
