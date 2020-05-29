@@ -53,7 +53,7 @@ def _get_inception_layer(sess):
     for op_idx, op in enumerate(ops):
         for o in op.outputs:
             shape = o.get_shape()
-            print('shape': shape)
+            print('shape', shape)
             if shape._dims != []:
               shape = [s for s in shape]
               new_shape = []
