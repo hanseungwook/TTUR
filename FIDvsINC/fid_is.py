@@ -240,7 +240,7 @@ def _handle_path(path, sess):
         x = np.clip(x, 0, 1)
 
         # Change to range [0, 255]
-        x = np.round((x * 255)
+        x = np.round(x * 255)
 
         # FID statistics
         m, s = calculate_activation_statistics(x, sess)
