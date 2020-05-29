@@ -1,0 +1,4 @@
+  File "fid_is.py", line 246
+    m, s = calculate_activation_statistics(x, sess)
+    ^
+SyntaxError: invalid syntax
