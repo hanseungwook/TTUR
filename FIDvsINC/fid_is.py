@@ -23,7 +23,7 @@ from scipy import linalg
 import pathlib
 import urllib
 import h5py
-from tqdm import tqdm
+from tqdm import trange
 
 
 from fidutils import get_inception_score, get_softmax
@@ -91,7 +91,7 @@ def get_activations(images, sess, batch_size=100, verbose=False):
     n_batches = d0//batch_size
     n_used_imgs = n_batches*batch_size
     pred_arr = np.empty((n_used_imgs,2048))
-    for i in tqdm(n_batches):
+    for i in trange(n_batches):
         if verbose:
             print("\rPropagating batch %d/%d" % (i+1, n_batches), end="", flush=True)
         start = i*batch_size
