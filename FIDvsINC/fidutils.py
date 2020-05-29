@@ -51,7 +51,8 @@ def get_inception_score(images, softmax, sess, splits=10, verbose=False):
 # get softmax output
 def get_softmax(sess, pool3):
     w = sess.graph.get_operation_by_name("FID_Inception_Net/softmax/logits/MatMul").inputs[1]
-    logits = tf.matmul(tf.squeeze(pool3), w)
+    # logits = tf.matmul(tf.squeeze(pool3), w)
+    logits = tf.matmul(tf.squeeze(pool3, [1, 2]), w)
     softmax = tf.nn.softmax(logits)
     return softmax
 #===============================================================================
