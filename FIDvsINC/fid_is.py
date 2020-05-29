@@ -237,7 +237,10 @@ def _handle_path(path, sess):
         x = np.transpose(x, (0, 2, 3, 1))
 
         # Might have to clip here
-        # x = np.clip(x, 0, 1)
+        x = np.clip(x, 0, 1)
+
+        # Change to range [0, 255]
+        x = np.round((x * 255)
 
         # FID statistics
         m, s = calculate_activation_statistics(x, sess)
