@@ -24,7 +24,7 @@
 
 ## User python environment
 HOME2=/nobackup/users/$(whoami)
-PYTHON_VIRTUAL_ENVIRONMENT=wmlce-1.6.2
+PYTHON_VIRTUAL_ENVIRONMENT=tf1.15
 CONDA_ROOT=$HOME2/anaconda3
 
 ## Activate WMLCE virtual environment 
@@ -64,7 +64,7 @@ date
 ###  outputs are in  multi_torch_<jobnum>.out and multi_torch_<jobnum>.err 
 
 python fid_is.py \
-nobackup/users/swhan/wtvae/results/biggan_unet_128_256_eval_z1_run6_end/recon_img.hdf5 /nobackup/users/swhan/wtvae/results/unet_128_256_eval_1/train/real_img.hdf5 \
+/nobackup/users/swhan/wtvae/results/biggan_unet_128_256_eval_z1_run6_end/recon_img.hdf5 /nobackup/users/swhan/wtvae/results/unet_128_256_eval_1/train/real_img.hdf5 \
 --gpu 0 
 
 echo "Run completed at:- "
