@@ -66,7 +66,7 @@ def normalize_img(data, range=None, scale_each=False):
 
     def norm_ip(img, min, max):
         np.clip(img, min, max, out=img)
-        img = (img + (-min)) / (max - min + 1e-5)
+        np.divide(np.add(img, -min, out=img), (max - min + 1e-5), out=img)
 
     def norm_range(t, range):
         if range is not None:
