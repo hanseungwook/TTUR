@@ -59,7 +59,7 @@ def get_softmax(sess, pool3):
 
 # Normalize image
 def normalize_img(data, range=None, scale_each=False):
-    data = data.clone()  # avoid modifying tensor in-place
+    data = np.copy(data)  # avoid modifying tensor in-place
     if range is not None:
         assert isinstance(range, tuple), \
             "range has to be a tuple (min, max) if specified. min and max are numbers"
