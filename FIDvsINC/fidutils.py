@@ -65,8 +65,8 @@ def normalize_img(data, range=None, scale_each=False):
             "range has to be a tuple (min, max) if specified. min and max are numbers"
 
     def norm_ip(img, min, max):
-        img.clamp_(min=min, max=max)
-        img.add_(-min).div_(max - min + 1e-5)
+        img.clip(img, min=min, max=max, out=img)
+        img = (img + (-min)) / (max - min + 1e-5)
 
     def norm_range(t, range):
         if range is not None:

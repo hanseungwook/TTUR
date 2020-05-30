@@ -238,7 +238,7 @@ def _handle_path(path, sess, norm=False):
 
         if norm:
             # Normalize to [0, 1] range
-            x = normalize_img(torch.from_numpy(x))
+            x = normalize_img(x)
 
         # Change to range [0, 255]
         x = np.round(x * 255)
