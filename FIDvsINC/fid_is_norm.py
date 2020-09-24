@@ -244,7 +244,7 @@ def _handle_path(path, sess, norm=False):
         x = np.round(x * 255)
 
         # FID statistics
-        m, s = calculate_activation_statistics(x, sess)
+        m, s = calculate_activation_statistics(x, sess, batch_size=50)
 
         # IS statistics
         inception_layer = _get_inception_layer(sess)

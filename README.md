@@ -34,10 +34,6 @@ This file contains the implementation of all necessary functions to calculate th
 as a python module imported into your own code, or as a standalone
 script to calculate the FID between precalculated (training set) statistics and a hdf5 dataset of images (saved in the shape (B, C, H, W) and in the range [0, 1] which is eventually normalized to [0, 255] during metric calculation.
 
-To compare directories with pre-calculated statistics (e.g. the ones from http://bioinf.jku.at/research/ttur/), use:
-
-    fid.py /path/to/images /path/to/precalculated_stats.npz
-
 To compare two hdf5 datasets, use
 
     python fid_is.py /path/to/hdf5_dataset_1 /path/to/hdf5_dataset_2 --gpu 0 (if you want to specify gpu)
