@@ -222,39 +222,39 @@ def check_or_download_inception(inception_path):
 
 
 def _handle_path(path, sess, norm=False):
-    if path.endswith('.npz'):
-        f = np.load(path)
-        m, s = f['mu'][:], f['sigma'][:]
-        f.close()
-    else:
+    # if path.endswith('.npz'):
+    #     f = np.load(path)
+    #     m, s = f['mu'][:], f['sigma'][:]
+    #     f.close()
+    # else:
         # path = pathlib.Path(path)
         # files = list(path.glob('*.jpg')) + list(path.glob('*.png'))
         # x = np.array([imread(str(fn)).astype(np.float32) for fn in files])
-        if '.hdf5' in path:
-            f = h5py.File(path, 'r')
-            x = np.array(f.get('data'))
-        elif '.npz' in path:
-            f = np.load(path)
-            x = f['x']
+    if '.hdf5' in path:
+        f = h5py.File(path, 'r')
+        x = np.array(f.get('data'))
+    elif '.npz' in path:
+        f = np.load(path)
+        x = f['x']
 
-        # Change into shape (B, H, W, C) from (B, C, H, W)
-        x = np.transpose(x, (0, 2, 3, 1))
+    # Change into shape (B, H, W, C) from (B, C, H, W)
+    x = np.transpose(x, (0, 2, 3, 1))
 
-        if norm:
-            # Normalize to [0, 1] range
-            x = normalize_img(x)
+    if norm:
+        # Normalize to [0, 1] range
+        x = normalize_img(x)
 
-        # Change to range [0, 255]
-        x = np.round(x * 255)
+    # Change to range [0, 255]
+    x = np.round(x * 255)
 
-        # FID statistics
-        m, s = calculate_activation_statistics(x, sess, batch_size=50)
+    # FID statistics
+    m, s = calculate_activation_statistics(x, sess, batch_size=50)
 
-        # IS statistics
-        inception_layer = _get_inception_layer(sess)
-        softmax = get_softmax(sess, inception_layer)
+    # IS statistics
+    inception_layer = _get_inception_layer(sess)
+    softmax = get_softmax(sess, inception_layer)
 
-        is_score, is_std = get_inception_score(x, softmax, sess, splits=10, verbose=True)
+    is_score, is_std = get_inception_score(x, softmax, sess, splits=10, verbose=True)
 
     return m, s, is_score, is_std
 
