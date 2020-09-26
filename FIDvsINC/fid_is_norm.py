@@ -235,7 +235,7 @@ def _handle_path(path, sess, norm=False):
         x = np.array(f.get('data'))
     elif '.npz' in path:
         f = np.load(path)
-        x = f['x']
+        x = f['x'] / 255.0
 
     # Change into shape (B, H, W, C) from (B, C, H, W)
     x = np.transpose(x, (0, 2, 3, 1))
