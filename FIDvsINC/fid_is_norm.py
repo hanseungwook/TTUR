@@ -273,7 +273,7 @@ def calculate_fid_is_given_paths(paths, inception_path):
         # sess.run(tf.compat.v1.global_variables_initializer())
         sess.run(tf.global_variables_initializer())
         m1, s1, is_score1, is_std1 = _handle_path(paths[0], sess, norm=True)
-        m2, s2, is_score2, is_std2 = _handle_path(paths[1], sess)
+        m2, s2, is_score2, is_std2 = _handle_path(paths[1], sess, norm=False)
         fid_value = calculate_frechet_distance(m1, s1, m2, s2)
         return fid_value, is_score1, is_score2
 
