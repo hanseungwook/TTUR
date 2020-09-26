@@ -230,8 +230,12 @@ def _handle_path(path, sess, norm=False):
         # path = pathlib.Path(path)
         # files = list(path.glob('*.jpg')) + list(path.glob('*.png'))
         # x = np.array([imread(str(fn)).astype(np.float32) for fn in files])
-        f = h5py.File(path, 'r')
-        x = np.array(f.get('data'))
+        if '.hdf5' in path:
+            f = h5py.File(path, 'r')
+            x = np.array(f.get('data'))
+        elif '.npz' in path:
+            f = np.load(path)
+            x = f['x']
 
         # Change into shape (B, H, W, C) from (B, C, H, W)
         x = np.transpose(x, (0, 2, 3, 1))
